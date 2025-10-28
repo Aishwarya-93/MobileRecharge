@@ -5,10 +5,25 @@ import com.college.recharge.models.RechargePlan;
 import com.college.recharge.models.RechargeRecord;
 import com.college.recharge.models.User;
 import com.college.recharge.utils.FileHandler;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends JFrame {
@@ -19,12 +34,12 @@ public class MainFrame extends JFrame {
         super("Mobile Recharge System");
 
         setLayout(new BorderLayout(10, 10));
-        Color backgroundColor = new Color(250, 245, 250);     
+        Color backgroundColor = new Color(250, 245, 250);    
         Color buttonColor = new Color(157, 97, 158);          
         Color buttonHoverColor = new Color(178, 120, 179);    
         Color textColor = Color.WHITE;                        
-        Color headingColor = new Color(90, 45, 91);           
-        Color tableHeaderColor = new Color(157, 97, 158);     
+        Color headingColor = new Color(90, 45, 91);          
+        Color tableHeaderColor = new Color(157, 97, 158);    
         Color borderColor = new Color(120, 70, 121);          
 
         getContentPane().setBackground(backgroundColor);
@@ -39,7 +54,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // UI Components 
+        // UI Components
         balanceLabel = new JLabel("Current Balance: ₹0.00");
         balanceLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         balanceLabel.setForeground(headingColor);
@@ -72,8 +87,21 @@ public class MainFrame extends JFrame {
 
         // Login Button Action 
         loginButton.addActionListener(e -> {
-            String mobile = JOptionPane.showInputDialog(MainFrame.this, "Enter Mobile Number to login or register:");
-            if (mobile == null || mobile.isEmpty()) return;
+            String mobile;
+            while (true) {
+                mobile = JOptionPane.showInputDialog(MainFrame.this, "Enter Mobile Number to login or register:");
+
+                if (mobile == null) return; // user cancelled
+
+            
+                if (!mobile.matches("\\d{10}")) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "Invalid Mobile Number!\nPlease enter exactly 10 digits (numbers only).",
+                            "Input Error", JOptionPane.ERROR_MESSAGE);
+                    continue;
+                }
+                break;
+            }
 
             User existingUser = rechargeSystem.findUser(mobile);
             if (existingUser != null) {
@@ -81,8 +109,21 @@ public class MainFrame extends JFrame {
                 updateBalanceDisplay();
                 JOptionPane.showMessageDialog(MainFrame.this, "Welcome back, " + existingUser.getName() + "!");
             } else {
-                String name = JOptionPane.showInputDialog(MainFrame.this, "New user! Enter your name:");
-                if (name == null || name.isEmpty()) return;
+                String name;
+                while (true) {
+                    name = JOptionPane.showInputDialog(MainFrame.this, "New user! Enter your name:");
+
+                    if (name == null) return;
+
+                   
+                    if (!name.matches("[a-zA-Z ]+")) {
+                        JOptionPane.showMessageDialog(MainFrame.this,
+                                "Invalid Name!\nPlease enter alphabets only (no numbers or symbols).",
+                                "Input Error", JOptionPane.ERROR_MESSAGE);
+                        continue;
+                    }
+                    break;
+                }
 
                 String balanceStr = JOptionPane.showInputDialog(MainFrame.this, "Enter an initial balance:");
                 if (balanceStr == null || balanceStr.isEmpty()) return;
@@ -100,7 +141,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // Recharge Button 
+        // Recharge Button
         rechargeButton.addActionListener(e -> {
             if (rechargeSystem.getCurrentUser() == null) {
                 JOptionPane.showMessageDialog(MainFrame.this, "Please log in first.");
@@ -138,7 +179,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // History Button 
+        // History Button
         historyButton.addActionListener(e -> {
             User currentUser = rechargeSystem.getCurrentUser();
             if (currentUser == null) {
@@ -171,7 +212,7 @@ public class MainFrame extends JFrame {
                     "Recharge History for " + currentUser.getName(), JOptionPane.PLAIN_MESSAGE);
         });
 
-        // Panels 
+        // Panels
         JPanel topPanel = new JPanel();
         topPanel.setBackground(backgroundColor);
         topPanel.add(balanceLabel);
@@ -211,3 +252,4 @@ public class MainFrame extends JFrame {
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }
+
