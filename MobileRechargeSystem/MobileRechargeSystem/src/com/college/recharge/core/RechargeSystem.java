@@ -16,12 +16,12 @@ public class RechargeSystem implements Serializable {
         userList = new ArrayList<>();
         plans = new ArrayList<>();
 
-        // Add more plans here
+        
         plans.add(new RechargePlan(1, "1GB/day, 28 days", 199.0));
         plans.add(new RechargePlan(2, "2GB/day, 56 days", 399.0));
-        plans.add(new RechargePlan(3, "1.5GB/day, 84 days", 666.0)); // NEW PLAN
-        plans.add(new RechargePlan(4, "2GB/day, 30 days", 299.0)); // NEW PLAN
-        plans.add(new RechargePlan(5, "Talktime only, unlimited validity", 100.0)); // NEW PLAN
+        plans.add(new RechargePlan(3, "1.5GB/day, 84 days", 666.0)); 
+        plans.add(new RechargePlan(4, "2GB/day, 30 days", 299.0)); 
+        plans.add(new RechargePlan(5, "Talktime only, unlimited validity", 100.0));
     }
 
     public User findUser(String mobileNumber) {
