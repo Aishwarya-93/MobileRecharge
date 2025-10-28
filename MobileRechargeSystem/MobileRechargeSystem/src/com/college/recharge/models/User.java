@@ -1,14 +1,14 @@
 package com.college.recharge.models;
 
 import java.io.Serializable;
-import java.util.ArrayList; // NEW IMPORT
-import java.util.List; // NEW IMPORT
+import java.util.ArrayList; 
+import java.util.List; 
 
 public class User implements Serializable {
     private String mobileNumber;
     private String name;
     private double walletBalance;
-    private List<RechargeRecord> history; // NEW: Each user has their own history
+    private List<RechargeRecord> history; 
 
     public User(String mobileNumber, String name, double walletBalance) {
         this.mobileNumber = mobileNumber;
@@ -22,7 +22,7 @@ public class User implements Serializable {
     public double getWalletBalance() { return walletBalance; }
     public void setWalletBalance(double walletBalance) { this.walletBalance = walletBalance; }
 
-    // NEW METHODS: Get the user's history and add a new record
+
     public List<RechargeRecord> getHistory() { return history; }
     public void addHistory(RechargeRecord record) { history.add(record); }
 }
