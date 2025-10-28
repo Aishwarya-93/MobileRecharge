@@ -5,9 +5,9 @@ import java.io.*;
 
 public class FileHandler {
 
-    private static final String FILE_PATH = "rechargeSystem.dat"; // File name changed
+    private static final String FILE_PATH = "rechargeSystem.dat"; 
 
-    // UPDATED: Saves the entire RechargeSystem object to a file
+    // Saves the entire RechargeSystem object to a file
     public static void saveSystemData(RechargeSystem system) {
         try (FileOutputStream fileOut = new FileOutputStream(FILE_PATH);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
@@ -17,13 +17,13 @@ public class FileHandler {
         }
     }
 
-    // UPDATED: Loads the entire RechargeSystem object from a file
+    //  Loads the entire RechargeSystem object from a file
     public static RechargeSystem loadSystemData() {
         try (FileInputStream fileIn = new FileInputStream(FILE_PATH);
              ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
             return (RechargeSystem) objectIn.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            return new RechargeSystem(); // Return a new system if the file is not found
+            return new RechargeSystem();
         }
     }
 }
