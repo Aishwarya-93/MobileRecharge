@@ -19,13 +19,13 @@ public class MainFrame extends JFrame {
         super("Mobile Recharge System");
 
         setLayout(new BorderLayout(10, 10));
-        Color backgroundColor = new Color(250, 245, 250);     // very light lavender
-        Color buttonColor = new Color(157, 97, 158);          // #9D619E main purple
-        Color buttonHoverColor = new Color(178, 120, 179);    // slightly lighter purple
-        Color textColor = Color.WHITE;                        // white button text
-        Color headingColor = new Color(90, 45, 91);           // deep purple for text
-        Color tableHeaderColor = new Color(157, 97, 158);     // matching header
-        Color borderColor = new Color(120, 70, 121);          // darker border
+        Color backgroundColor = new Color(250, 245, 250);     
+        Color buttonColor = new Color(157, 97, 158);          
+        Color buttonHoverColor = new Color(178, 120, 179);    
+        Color textColor = Color.WHITE;                        
+        Color headingColor = new Color(90, 45, 91);           
+        Color tableHeaderColor = new Color(157, 97, 158);     
+        Color borderColor = new Color(120, 70, 121);          
 
         getContentPane().setBackground(backgroundColor);
 
@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // ===== UI Components =====
+        // UI Components 
         balanceLabel = new JLabel("Current Balance: ₹0.00");
         balanceLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         balanceLabel.setForeground(headingColor);
@@ -70,7 +70,7 @@ public class MainFrame extends JFrame {
             });
         }
 
-        // ===== Login Button Action =====
+        // Login Button Action 
         loginButton.addActionListener(e -> {
             String mobile = JOptionPane.showInputDialog(MainFrame.this, "Enter Mobile Number to login or register:");
             if (mobile == null || mobile.isEmpty()) return;
@@ -100,7 +100,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // ===== Recharge Button =====
+        // Recharge Button 
         rechargeButton.addActionListener(e -> {
             if (rechargeSystem.getCurrentUser() == null) {
                 JOptionPane.showMessageDialog(MainFrame.this, "Please log in first.");
@@ -138,7 +138,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // ===== History Button =====
+        // History Button 
         historyButton.addActionListener(e -> {
             User currentUser = rechargeSystem.getCurrentUser();
             if (currentUser == null) {
@@ -171,7 +171,7 @@ public class MainFrame extends JFrame {
                     "Recharge History for " + currentUser.getName(), JOptionPane.PLAIN_MESSAGE);
         });
 
-        // ===== Panels =====
+        // Panels 
         JPanel topPanel = new JPanel();
         topPanel.setBackground(backgroundColor);
         topPanel.add(balanceLabel);
